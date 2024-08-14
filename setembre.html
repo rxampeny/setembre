@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniversaris de Setembre</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .chart-area {
+            position: relative;
+            height: 550px;
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+        .bar-chart {
+            height: 350px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            position: absolute;
+            left: 40px;
+            right: 0;
+            bottom: 150px;
+        }
+        .bar {
+            width: 60px;
+            background-color: #3498db;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        .bar:hover {
+            background-color: #2980b9;
+        }
+        .x-axis-labels {
+            position: absolute;
+            left: 40px;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        .x-axis-label {
+            transform: rotate(-45deg);
+            transform-origin: top left;
+            text-align: left;
+            font-weight: bold;
+            width: 120px;
+            white-space: nowrap;
+            margin-top: 10px;
+        }
+        .y-axis {
+            position: absolute;
+            left: 0;
+            bottom: 150px;
+            width: 40px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid #333;
+        }
+        .y-axis-label {
+            margin-right: 5px;
+            height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .x-axis {
+            position: absolute;
+            left: 40px;
+            right: 0;
+            bottom: 150px;
+            border-top: 1px solid #333;
+        }
+        .tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <h1>Aniversaris de setembre</h1>
+        <div class="chart-area">
+            <div class="y-axis">
+                <div class="y-axis-label">31</div>
+                <div class="y-axis-label">21</div>
+                <div class="y-axis-label">11</div>
+                <div class="y-axis-label">1</div>
+            </div>
+            <div class="x-axis"></div>
+            <div class="bar-chart">
+                <div class="bar" style="height: 40%;" data-name="Juan Luis López" data-day="13">
+                    13
+                </div>
+                <div class="bar" style="height: 53.3%;" data-name="Mar Gutiérrez" data-day="17">
+                    17
+                </div>
+                <div class="bar" style="height: 70%;" data-name="Luqui Luján" data-day="22">
+                    22
+                </div>
+            </div>
+            <div class="x-axis-labels">
+                <div class="x-axis-label">Juan Luis López</div>
+                <div class="x-axis-label">Mar Gutiérrez</div>
+                <div class="x-axis-label">Luqui Luján</div>
+            </div>
+        </div>
+        <div class="tooltip"></div>
+    </div>
+
+    <script>
+        const bars = document.querySelectorAll('.bar');
+        const tooltip = document.querySelector('.tooltip');
+
+        bars.forEach(bar => {
+            bar.addEventListener('mouseover', (e) => {
+                const name = bar.getAttribute('data-name');
+                const day = bar.getAttribute('data-day');
+                tooltip.textContent = `${name}: ${day} de setembre`;
+                tooltip.style.opacity = 1;
+                tooltip.style.left = `${e.pageX}px`;
+                tooltip.style.top = `${e.pageY - 40}px`;
+            });
+
+            bar.addEventListener('mouseout', () => {
+                tooltip.style.opacity = 0;
+            });
+
+            bar.addEventListener('mousemove', (e) => {
+                tooltip.style.left = `${e.pageX}px`;
+                tooltip.style.top = `${e.pageY - 40}px`;
+            });
+        });
+    </script>
+</body>
+</html>
